@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+         <link href="../static/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="../static/bootstrap4-Beta/css/bootstrap.min.css">
+         <link rel="stylesheet" href="../static/style.css">
+      </head>
+      <body>
+         <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+            <div class="container">
+               <div class="navbar-header">
+                  <a class="navbar-brand text-white" href="#"><i class="fa fa-gear text-primary"></i> URL PY-Shortener</a>
+               </div>
+               <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
+                    <span class="navbar-toggler-icon"></span>
+               </button>
+               <div id="navbar" class="navbar-collapse collapse">
+                  <ul class = "nav navbar-nav ml-auto">
+                     <li class="nav-item active">
+                        <a href="#" class="nav-link">HOME</a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">ABOUT</a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">SUPPORT</a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">NOTABLE USERS <i class="fa fa-users"></i></a>
+                     </li>
+                  </ul>
+               </div>
+               <!--/.navbar-collapse -->
+            </div>
+         </nav>
+         
+        <!--  body -->
+            <div class="container w-100 h-100">
+               
+               <div class="row text-center align-items-center justify-content-center h-100">
+                  <div class = "col-md-9 col-sm-12 col-xs-12">
+                     <h4 style="font-size: 40px;">Enter URL to shorten.</h4>
+                     <i class="fa fa-arrow-down text-primary" style="font-size: 20px;"></i>
+                     <br>
+                     <br>
+                     <form onsubmit = "return validate()" name = "myform"  method="post" action="http://localhost:5000/yourShortUrl">
+                        <div class="form-group">
+                           <input type="text" id="url" name="url" class="form-control input-lg p-2" placeholder="URL" />
+                           <br>
+                           <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                        </div>
+                     </form>
+                     <div class="alert alert-danger" id="alert"></div>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+         
+         <script src = "../static/jquery/1.12.2/jquery.min.js"></script>
+         <script src = "../static/bootstrap4-Beta/js/bootstrap.min.js"></script>
+         <script src="../static/script.js"></script>
+      </body>
+   </html>

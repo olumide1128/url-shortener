@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+         <link href="../static/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+         <link rel="stylesheet" href="../static/bootstrap4-Beta/css/bootstrap.min.css">
+         <link rel="stylesheet" href="../static/style.css">
+      </head>
+      <body>
+         <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+            <div class="container">
+               <div class="navbar-header">
+                  <a class="navbar-brand text-white" href="#"><i class="fa fa-gear text-primary"></i> URL PY-Shortener</a>
+               </div>
+               <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
+                    <span class="navbar-toggler-icon"></span>
+               </button>
+               <div id="navbar" class="navbar-collapse collapse">
+                  <ul class = "nav navbar-nav ml-auto">
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">HOME</a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">ABOUT</a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">SUPPORT</a>
+                     </li>
+                     <li class="nav-item">
+                        <a href="#" class="nav-link">NOTABLE USERS <i class="fa fa-users"></i></a>
+                     </li>
+                  </ul>
+               </div>
+               <!--/.navbar-collapse -->
+            </div>
+         </nav>
+         <!-- Main jumbotron for a primary marketing message or call to action -->
+            <div class="container w-100 h-100">
+               <div class="row text-center h-100 align-items-center justify-content-center">
+                  <div class = "col-md-9 col-sm-12 col-xs-12">
+                     <h4 style="font-size: 40px;">Your Shortened URL.</h4>
+                     <i class="fa fa-arrow-down text-success" style="font-size: 20px;"></i>
+                     <br>
+                     <br>
+                     <div class="form-group">
+                        <input type="text" id="shorturl" name="url" value = '{{short_url}}' class="form-control input-lg p-2"/>
+                        <br>
+                        <button class = "btn btn-lg btn-success" onclick="myFunction()">Copy <i class="fa fa-copy"></i>
+                        </button>
+                        <a href = "http://localhost:5000" class="btn btn-lg btn-danger"><i class="fa fa-arrow-left"></i> Go Back</a>
+                        <br>
+                        <br>
+                        <small class = "text-muted" id="info"></small> <i id = "icon" class="fa fa-pencil text-muted" style="display: none;"></i>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+
+         <script src = "../static/jquery/1.12.2/jquery.min.js"></script>
+         <script src = "../static/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+         <script src="../static/script.js"></script>
+      </body>
+   </html>
