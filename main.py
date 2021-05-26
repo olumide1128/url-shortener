@@ -1,52 +1,24 @@
 from flask import Flask, request, render_template, redirect
 from math import floor
 from sqlite3 import OperationalError
-import string, sqlite3
+import string
+import sqlite3
 from urllib.parse import urlparse
-import psycopg2
+from baseconv import base62
+
 
 host = 'http://localhost:5000/'
 
-conn = psycopg2.connect(user="<<username>>", password="<<dbPass>>",
-                        host="<<Host>>",
-                        port="<<port>>",
-                        database="<<dbName>>")
-
-
 
 # Base62 Encoder and Decoder
-def toBase62(num, b = 62):
-    base = string.digits + string.ascii_lowercase + string.ascii_uppercase
-    res= "";
-    
-    while (num > 0): 
-        res+= base[num % b]; 
-        num = int(num / b); 
-        
-    # Reverse the result 
-    res = res[::-1] 
-    return res;
+def toBase62(num):
+    encoded = base62.encode(num)
+    return encoded
 
 
-def toBase10(num, b=62):
-    base = string.digits + string.ascii_lowercase + string.ascii_uppercase
-
-    llen = len(num) 
-    power = 1 #Initialize power of base 
-    res = 0     #Initialize result 
-  
-    # Decimal equivalent is str[len-1]*1 +  
-    # str[len-1]*base + str[len-1]*(base^2) + ...  
-    for i in range(llen - 1, -1, -1): 
-          
-        # A digit in input number must
-        # be less than number's base  
-        if (base.index(num[i])) >= b:
-            print('Invalid Number!')
-            break
-        res += base.index(num[i]) * power 
-        power = power * b
-    return res
+def toBase10(text):
+    decoded = base62.decode(text)
+    return decoded
 
 
 
@@ -66,13 +38,18 @@ def shortUrlPage():
         if urlparse(original_url).scheme == '':
             original_url = 'http://' + original_url
         
+        conn = sqlite3.connect('urls.db')
+
         cursor = conn.cursor()
-        insert_query = """ INSERT INTO test (url) VALUES (%s) RETURNING id"""
+        insert_query = """ INSERT INTO WEB_URL (URL) VALUES (?)"""
         record_to_insert = (original_url,)
         cursor.execute(insert_query, record_to_insert)
         conn.commit()
 
-        lastrowid = cursor.fetchone()[0]
+        #get last inserted id
+        lastrowid = cursor.lastrowid
+
+        #encode to string
         encoded_string = toBase62(lastrowid)
         return render_template('urlPage.html', short_url= host + encoded_string)
 
@@ -83,13 +60,20 @@ def redirect_short_url(short_url):
     decoded_string = toBase10(short_url)
     redirect_url = 'http://localhost:5000'
 
+    conn = sqlite3.connect('urls.db')
+
     cursor = conn.cursor()
-    select_row = """ SELECT url FROM test WHERE id=%s """%(decoded_string)
-    cursor.execute(select_row)
+    select_row = """SELECT url FROM WEB_URL WHERE id=?"""
+
+    record_to_insert = (decoded_string,)
+
+    cursor.execute(select_row, record_to_insert)
 
     redirect_url = cursor.fetchone()[0]
-        
+    
     return redirect(redirect_url)
+
+
 
 
 if __name__ == '__main__':
